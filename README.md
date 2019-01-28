@@ -1,2 +1,2 @@
-# fuck-chris
+# shopper
 Shop management Discord bot
