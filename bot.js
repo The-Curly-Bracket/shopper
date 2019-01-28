@@ -10,6 +10,26 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 const fs = require('fs');
 const eliapi = require('eliapi');
+// Server settings
+const Enmap = require('enmap');
+bot.settings = new Enmap({
+  name: "settings",
+  autoFetch: true,
+  fetchAll: false
+});
+const defaultSettings =  {
+  prefix: "$",
+  modLogChannel: "mod-log",
+  modRole: "Mod",
+  adminRole: "Admin",
+  welcomeChannel: "welcome",
+  welcomeMessage: "Say hello to {{user}}, everyone!"
+}
+bot.on('guildDelete', guild => { // when bot is kicked or leaves,
+	bot.settings.delete(guild.id); // remove server settings
+});
+
+// Token auth
 let token;
 try {
 	token = JSON.parse(fs.readFileSync(PATH_ON_SERVER)).token;
@@ -24,7 +44,6 @@ console.log('Started life anew');
 
 
 // Command handler
-
 bot.commands = new Discord.Collection();
 
 fs.readdir('./commands/', (err, files) => {
@@ -43,7 +62,6 @@ fs.readdir('./commands/', (err, files) => {
 
 
 // Config
-
 const prefix = '$';
 const userID = '<@539523219397279775>';
 
@@ -52,9 +70,9 @@ bot.on('message', async message => {
 
 	let currentdate = new Date();
 	let origin = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds() + '  ' + message.guild.name.trim().substring(0,10) + ' / ' + message.author.username.trim().substring(0,10) + ' / ' + message.channel.name.substring(0,10) + '  ' + message.content + ':  ';
+	let guildConf = bot.settings.ensure(message.guild.id, defaultSettings);
 
 	// anything not command related
-
 	if (message.content.includes(userID))
 		console.log(`${currentdate}  ${message.author.username}  ${message.guild.name} | ${message.channel.name}  NOTICE:  ${message.content}`);
 
@@ -64,11 +82,10 @@ bot.on('message', async message => {
   let args = cont.slice(1); // slices off command, leaving only arguments
 
 	// Handle commands (start with prefix)
-
 	let cmd  = bot.commands.get(cont[0]);
 	if (cmd) {
 		console.log(`'${cmd.config.name}' command run`);
-		let output = await cmd.run(bot, message, args, origin);
+		let output = await cmd.run(bot, message, args, origin, guildConf);
 		// console.log(output);
 		if (output != 0) {
 			message.reply(`Error: ${output} \n Usage:  ${cmd.config.usage}`)
@@ -92,7 +109,6 @@ bot.on('ready', () => {
 
 
 // Console input
-
 rl.on('line', async input => {
 	let args = input.split(" ");
 
