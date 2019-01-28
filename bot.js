@@ -45,7 +45,7 @@ fs.readdir('./commands/', (err, files) => {
   })
 });
 
-
+ // test commit lmao
 // Config
 
 const prefix = '$';
