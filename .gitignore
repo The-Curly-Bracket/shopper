@@ -62,3 +62,6 @@ typings/
 
 # literally the stupid token
 *token*
+
+# enmap data
+data
