@@ -5,6 +5,6 @@ module.exports.run = async (bot, message, args, origin) => {  // Runs when comma
 
 module.exports.config = {  // Command info
 	name: 'ping',
-	usage: '>ping'
+	usage: '$ping'
 
 }
