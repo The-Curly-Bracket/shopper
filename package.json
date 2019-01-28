@@ -17,9 +17,7 @@
   },
   "homepage": "https://github.com/AlexCheese/fuck-chris#readme",
   "dependencies": {
-    "better-sqlite-pool": "^0.2.0",
     "discord.js": "^11.4.2",
-    "eliapi": "0.0.3",
-    "enmap": "^4.7.0"
+    "eliapi": "0.0.3"
   }
 }
