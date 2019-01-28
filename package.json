@@ -1,0 +1,23 @@
+{
+  "name": "fuck-chris",
+  "version": "1.0.0",
+  "description": "Shop management Discord bot",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexCheese/fuck-chris.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexCheese/fuck-chris/issues"
+  },
+  "homepage": "https://github.com/AlexCheese/fuck-chris#readme",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "eliapi": "0.0.3"
+  }
+}

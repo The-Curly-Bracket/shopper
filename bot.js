@@ -45,7 +45,7 @@ fs.readdir('./commands/', (err, files) => {
 // Config
 
 const prefix = '$';
-const userID = '';
+const userID = '<@539523219397279775>';
 
 // Listener Event: Received message
 bot.on('message', async message => {
