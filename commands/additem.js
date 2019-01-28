@@ -1,4 +1,4 @@
-module.exports.run = async (bot, message, args, origin) => { // Runs when command is called
+module.exports.run = async (bot, message, args, origin, shop) => { // Runs when command is called
 
   return 0; // nonzero value is returned in reply
 }

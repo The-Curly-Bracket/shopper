@@ -21,6 +21,8 @@ console.log(`Logging in with token: ${token}`);
 bot.login(token);
 console.log('Started life anew');
 
+// load item
+const shop = JSON.parse(fs.readFileSync('shop.json'));
 
 // Command handler
 
@@ -70,7 +72,7 @@ bot.on('message', async message => {
   let cmd = bot.commands.get(cont[0]);
   if (cmd) {
     console.log(`'${cmd.config.name}' command run`);
-    let output = await cmd.run(bot, message, args, origin);
+    let output = await cmd.run(bot, message, args, origin, shop);
     // console.log(output);
     if (output != 0) {
       message.reply(`Error: ${output} \n Usage:  ${cmd.config.usage}`)
