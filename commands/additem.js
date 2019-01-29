@@ -2,7 +2,6 @@ const fs = require("fs");
 const eliapi = require("eliapi");
 
 module.exports.run = async (bot, message, args, origin, shop) => { // Runs when command is called
-  args = [message.content.split(" ").slice(1).slice(0, -1).join(" "), message.content.split(" ")[message.content.split(" ").length-1]]
   if (args.length != 2) return "Invalid command usage";
   if (args[0] == "finish") return "You cannot name a product \"finish\"";
   if (parseInt(args[1]) < 0) return "Cost must be positive";
