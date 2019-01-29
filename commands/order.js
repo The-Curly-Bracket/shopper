@@ -2,7 +2,9 @@ module.exports.run = async (bot, message, args, origin, shop) => { // Runs when 
 	let order = {};
 	let itemListener = input => {
 		if (input.author.username != message.author.username) return;
-		let cont = input.content.split(" ");
+		// let cont = input.content.split(" ");
+		input.content = input.content.toLowerCase();
+		let cont = [input.content.split(" ").slice(0, -1).join(" "), input.content.split(" ")[input.content.split(" ").length-1]];
 		switch (cont[0]) {
 			case '$order':
 				bot.off('message', itemListener);
@@ -15,8 +17,10 @@ module.exports.run = async (bot, message, args, origin, shop) => { // Runs when 
 				break;
 			case 'finish':
 				message.channel.send('finished order');
+				let i = '';
 				for (let j in order)
-					console.log(`${order[j]} ${j}: \$${shop[j]*order[j]}`);
+					i += `${order[j]} ${j}s: \$${shop[j]*order[j]}\n`;
+				message.channel.send(i);
 				bot.off('message', itemListener);
 				return;
 				break;
@@ -32,7 +36,7 @@ module.exports.run = async (bot, message, args, origin, shop) => { // Runs when 
 	}
 	await message.channel.send(`Type the name of the unit you wish to order, then the quantity!`);
 	bot.on('message', itemListener);
-  return 'event test'; // nonzero value is returned in reply
+  return 0; // nonzero value is returned in reply
 }
 
 module.exports.config = { // Command info
