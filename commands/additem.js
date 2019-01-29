@@ -12,7 +12,7 @@ module.exports.run = async (bot, message, args, origin, shop) => { // Runs when 
       return eliapi.log(2, err);
     }
   });
-  message.channel.send(`Item "${args[0]}" with price "${parseInt(args[1]);}" added to shop`);
+  message.channel.send(`Item "${args[0]}" with price "${parseInt(args[1])}" added to shop`);
   return 0; // nonzero value is returned in reply
 }
 
