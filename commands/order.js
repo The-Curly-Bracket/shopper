@@ -2,9 +2,11 @@ module.exports.run = async (bot, message, args, origin, shop) => { // Runs when 
 	let order = {};
 	let itemListener = input => {
 		if (input.author.username != message.author.username) return;
-		// let cont = input.content.split(" ");
-		input.content = input.content.toLowerCase();
-		let cont = [input.content.split(" ").slice(0, -1).join(" "), input.content.split(" ")[input.content.split(" ").length-1]];
+		let msg = input.content.toLowerCase();
+		let cont = msg.split(" ");
+		cont = (!isNaN(cont[cont.length-1]) && cont.length > 1)
+			? [input.content.split(" ").slice(0, -1).join(" "), input.content.split(" ")[input.content.split(" ").length-1]]
+			: [msg];
 		switch (cont[0]) {
 			case '$order':
 				bot.off('message', itemListener);
@@ -28,7 +30,7 @@ module.exports.run = async (bot, message, args, origin, shop) => { // Runs when 
 				let itemNo = cont.slice(-1);
 				itemNo = isNaN(itemNo) ? 1 : parseInt(itemNo);
 				if (shop[cont[0]]) {
-					message.channel.send(`Ordering ${itemNo} ${cont[0]}!`);
+					message.channel.send(`Ordering ${itemNo} ${cont[0]}s!`);
 					order[cont[0]] = isNaN(order[cont[0]]) ? itemNo : itemNo + order[cont[0]];
 				}
 				break;
