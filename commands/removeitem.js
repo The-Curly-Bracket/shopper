@@ -2,6 +2,7 @@ const fs = require("fs");
 const eliapi = require("eliapi");
 
 module.exports.run = async (bot, message, args, origin, shop) => { // Runs when command is called
+  let args = [message.content.split(" ").slice(1).join(" ")]
   if (args.length != 1) return "Invalid command usage";
   if (!shop[args[0]]) return "Item does not exist";
   delete shop[args[0]];
