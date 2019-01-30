@@ -50,7 +50,7 @@ module.exports.run = async (bot, message, args, origin, shop) => { // Runs when 
 			default:
 				let itemNo = cont.slice(-1);
 				itemNo = isNaN(itemNo) ? 1 : parseInt(itemNo);
-				if itemNo > 0 return;
+				if (itemNo > 0) return;
 				if (shop[cont[0]]) {
 					message.channel.send(`Ordering ${itemNo} ${cont[0]}s!`);
 					order[cont[0]] = isNaN(order[cont[0]]) ? itemNo : itemNo + order[cont[0]];
