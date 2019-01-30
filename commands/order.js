@@ -39,11 +39,24 @@ module.exports.run = async (bot, message, args, origin, shop) => { // Runs when 
 					total += shop[k]*order[k];
 				}
 				await prompt.addField(`__Total Cost__`, `**$${total}**`);
-				await message.channel.send(prompt)
-					.then(async msg => {
-						await msg.react('✅');
-						await msg.react('❌');
-					});
+				let msg = await message.channel.send(prompt);
+				await msg.react('✅');
+				await msg.react('❌');
+				let checker = new Discord.ReactionCollector(msg, reaction => reaction.users.some(usr => !usr.bot && message.guild.member(usr).hasPermission(`ADMINISTRATOR`)));
+				checker.on('collect', reaction => {
+					if (reaction.emoji == '✅') {
+						console.log('received confirm');
+						msg.edit(prompt.setColor('GREEN'));
+						message.channel.send(`.remove-money ${message.author.username} ${total}`)
+							.then(kms => kms.delete(1000));
+						checker.stop();
+					}
+					else if (reaction.emoji == '❌') {
+						console.log('received reject');
+						msg.edit(prompt.setColor('RED'));
+						checker.stop();
+					}
+				});
 				bot.off('message', itemListener);
 				return;
 				break;
