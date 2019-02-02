@@ -1,5 +1,6 @@
 const Discord = require('discord.js')
 module.exports.run = async (bot, message, args, origin, shop) => { // Runs when command is called
+	let addCommas = x => { return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }
 	let order = {};
 	let itemListener = async input => {
 		if (input.author.username != message.author.username) return;
@@ -34,10 +35,10 @@ module.exports.run = async (bot, message, args, origin, shop) => { // Runs when 
 				}).setColor('BLUE');
 				let total = 0;
 				for (let k in order) {
-					await prompt.addField(`${order[k]} ${k}s`, `\$${shop[k]*order[k]}`, false);
+					await prompt.addField(`${order[k]} ${k}s`, `\$${addCommas(shop[k]*order[k])}`, false);
 					total += shop[k]*order[k];
 				}
-				await prompt.addField(`__Total Cost__`, `**$${total}**`);
+				await prompt.addField(`__Total Cost__`, `**$${addCommas(total)}**`);
 				let msg = await message.channel.send(prompt);
 				await msg.react('✅');
 				await msg.react('❌');
