@@ -1,4 +1,4 @@
-module.exports.run = async (bot, message, args, origin, shop) => { // Runs when command is called
+module.exports.run = async (bot, message, args, origin) => { // Runs when command is called
   let products = Object.keys(shop).join("\n");
   let prices = Object.values(shop).join("\n");
   message.channel.send({

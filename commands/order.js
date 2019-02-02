@@ -1,5 +1,6 @@
 const Discord = require('discord.js')
-module.exports.run = async (bot, message, args, origin, shop) => { // Runs when command is called
+let shop = require('shop.json');
+module.exports.run = async (bot, message, args, origin) => { // Runs when command is called
 	let addCommas = x => { return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }
 	let order = {};
 	let itemListener = async input => {

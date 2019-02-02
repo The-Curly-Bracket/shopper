@@ -1,7 +1,8 @@
 const fs = require("fs");
 const eliapi = require("eliapi");
+let shop = require('shop.json');
 
-module.exports.run = async (bot, message, args, origin, shop) => { // Runs when command is called
+module.exports.run = async (bot, message, args, origin) => { // Runs when command is called
 	if (!message.member.permissions.has(`ADMINISTRATOR`)) return `Missing 'Administrator' permission`;
 	args = [message.content.split(" ").slice(1).join(" ")]
 	if (args[0].length < 2) return "Please provide a valid item name";
