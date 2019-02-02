@@ -64,16 +64,12 @@ module.exports.run = async (bot, message, args, origin, shop) => { // Runs when 
 				if (itemNo < 1) return;
 				let shoplist = Object.keys(shop);
 				for (let j in shoplist) {
-					if (shoplist[j].startsWith(cont[0])) {
+					if (shoplist[j].toLowerCase().startsWith(cont[0])) {
 						message.channel.send(`Ordering ${itemNo} ${shoplist[j]}s!`);
 						order[shoplist[j]] = isNaN(order[shoplist[j]]) ? itemNo : itemNo + order[shoplist[j]];
 						break;
 					}
 				}
-				/*if (shop[cont[0]]) {
-					message.channel.send(`Ordering ${itemNo} ${cont[0]}s!`);
-					order[cont[0]] = isNaN(order[cont[0]]) ? itemNo : itemNo + order[cont[0]];
-				}*/
 				break;
 		}
 	}
