@@ -35,7 +35,7 @@ module.exports.run = async (bot, message, args, origin, shop) => { // Runs when 
 				}).setColor('BLUE');
 				let total = 0;
 				for (let k in order) {
-					await prompt.addField(`${order[k]} ${k}s`, `\$${addCommas(shop[k]*order[k])}`, false);
+					await prompt.addField(`${order[k]} ${k}${(order[k] > 1) ? 's' : ''}`, `\$${addCommas(shop[k]*order[k])}`, false);
 					total += shop[k]*order[k];
 				}
 				await prompt.addField(`__Total Cost__`, `**$${addCommas(total)}**`);
@@ -65,7 +65,7 @@ module.exports.run = async (bot, message, args, origin, shop) => { // Runs when 
 				let shoplist = Object.keys(shop);
 				for (let j in shoplist) {
 					if (shoplist[j].toLowerCase().startsWith(cont[0])) {
-						message.channel.send(`Ordering ${itemNo} ${shoplist[j]}s!`);
+						message.channel.send(`Ordering ${itemNo} ${shoplist[j]}${(itemNo > 1) ? 's!' : '!'}`);
 						order[shoplist[j]] = isNaN(order[shoplist[j]]) ? itemNo : itemNo + order[shoplist[j]];
 						break;
 					}
