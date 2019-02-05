@@ -53,7 +53,7 @@ const userID = '<@539523219397279775>';
 bot.on('message', async message => {
 
   let currentdate = new Date();
-  let origin = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds() + '  ' + message.guild.name.trim().substring(0, 10) + ' / ' + message.author.username.trim().substring(0, 10) + ' / ' + message.channel.name.substring(0, 10) + '  ' + message.content + ':  ';
+  // let origin = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds() + '  ' + message.guild.name.trim().substring(0, 10) + ' / ' + message.author.username.trim().substring(0, 10) + ' / ' + message.channel.name.substring(0, 10) + '  ' + message.content + ':  ';
 
   // anything not command related
 
@@ -70,7 +70,7 @@ bot.on('message', async message => {
   let cmd = bot.commands.get(cont[0]);
   if (cmd) {
     console.log(`'${cmd.config.name}' command run`);
-    let output = await cmd.run(bot, message, args, origin);
+    let output = await cmd.run(bot, message, args);
     // console.log(output);
     if (output != 0) {
       message.reply(`Error: ${output} \n Usage:  ${cmd.config.usage}`)

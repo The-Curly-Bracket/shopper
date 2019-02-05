@@ -1,7 +1,7 @@
 const fs = require("fs");
 const eliapi = require("eliapi");
 
-module.exports.run = async (bot, message, args, origin) => { // Runs when command is called
+module.exports.run = async (bot, message, args) => { // Runs when command is called
 	let shop = JSON.parse(fs.readFileSync('shop.json'));;
 	if (!message.member.permissions.has(`ADMINISTRATOR`)) return `Missing 'Administrator' permission`;
   args = [message.content.split(" ").slice(1).slice(0, -1).join(" "), message.content.split(" ")[message.content.split(" ").length-1]]

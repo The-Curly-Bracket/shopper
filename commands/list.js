@@ -1,5 +1,5 @@
 const fs = require('fs');
-module.exports.run = async (bot, message, args, origin) => { // Runs when command is called
+module.exports.run = async (bot, message, args) => { // Runs when command is called
   let shop = JSON.parse(fs.readFileSync('shop.json'));
   let products = Object.keys(shop).join("\n");
   let prices = Object.values(shop).join("\n");

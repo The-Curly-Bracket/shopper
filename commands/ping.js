@@ -1,4 +1,4 @@
-module.exports.run = async (bot, message, args, origin) => {  // Runs when command is called
+module.exports.run = async (bot, message, args) => {  // Runs when command is called
 	message.channel.send(`Ping!`);
 	return 0;
 }

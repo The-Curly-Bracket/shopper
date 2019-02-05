@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-module.exports.run = async (bot, message, args, origin) => {  // Runs when command is called
+module.exports.run = async (bot, message, args) => {  // Runs when command is called
 	if (message.author.username != 'AlexCheese') { return 0 };
 	message.delete();
 	switch (args[0]) {
