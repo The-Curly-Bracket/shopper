@@ -50,7 +50,10 @@ module.exports.run = async (bot, message, args, origin) => { // Runs when comman
 						msg.edit(prompt.setColor('GREEN').addField(`**Copy/paste command**`, `\`.pay @UnbelievaBoat#1046 ${total}\``, false));
 						/*message.channel.send(`.remove-money ${message.author.username} ${total}`)
 							.then(kms => kms.delete(5000));*/  // not today, old friend
+						(kms => kms.delete(500);
 						checker.stop();
+						//sends the order to Chris
+						bot.users.get("540294232435327007").send(message.author.username + "has ordered" + order);
 					}
 					else if (reaction.emoji == '❌') {
 						msg.edit(prompt.setColor('RED'));
