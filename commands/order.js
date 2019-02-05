@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const fs = require('fs');
+const chrisId = '365986087157366785';
 module.exports.run = async (bot, message, args) => { // Runs when command is called
 	let shop = JSON.parse(fs.readFileSync('shop.json'));
 	let addCommas = x => { return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }
@@ -41,22 +42,30 @@ module.exports.run = async (bot, message, args) => { // Runs when command is cal
 					total += shop[k]*order[k];
 				}
 				await prompt.addField(`__Total Cost__`, `**$${addCommas(total)}**`);
-				let msg = await message.channel.send(prompt);
-				await msg.react('✅');
-				await msg.react('❌');
-				let checker = new Discord.ReactionCollector(msg, reaction => reaction.users.some(usr => !usr.bot && message.guild.member(usr).hasPermission(`ADMINISTRATOR`)));
-				checker.on('collect', reaction => {
+				let confirmation = reaction => {
 					if (reaction.emoji == '✅') {
 						msg.edit(prompt.setColor('GREEN').addField(`**Copy/paste command**`, `\`.pay @UnbelievaBoat#1046 ${total}\``, false));
-						/*message.channel.send(`.remove-money ${message.author.username} ${total}`)
-							.then(kms => kms.delete(5000));*/  // not today, old friend
-						checker.stop();
+						dm.edit(prompt);
+						channelchecker.stop();
+						dmchecker.stop()
 					}
 					else if (reaction.emoji == '❌') {
 						msg.edit(prompt.setColor('RED'));
-						checker.stop();
+						dm.edit(prompt);
+						channelchecker.stop();
+						dmchecker.stop()
 					}
-				});
+				}
+				let msg = await message.channel.send(prompt);
+				let dm = await bot.users.get(chrisId).send(prompt);
+				let channelchecker = new Discord.ReactionCollector(msg, reaction => reaction.users.some(usr => !usr.bot && message.guild.member(usr).hasPermission(`ADMINISTRATOR`)));
+				let dmchecker = new Discord.ReactionCollector(dm, reaction => reaction.users.some(usr => !usr.bot));
+				await msg.react('✅');
+				await msg.react('❌');
+				await dm.react('✅');
+				await dm.react('❌');
+				channelchecker.on('collect', reaction => confirmation(reaction));
+				dmchecker.on('collect', reaction => confirmation(reaction));
 				bot.off('message', itemListener);
 				return;
 				break;
